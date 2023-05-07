@@ -10,14 +10,14 @@ openai_api_key = st.secrets["OPENAI_API_KEY"]
 
 
 template = """
-    Please generate 5 bullet points for a {difficulty} level lesson plan on the following topic for a {grade} class:
+    Please generate 5 bullet points for a lesson plan on the following topic for a {grade} class:
     {lesson_description}
 
     YOUR LESSON PLAN BULLET POINTS:
 """
 
 prompt = PromptTemplate(
-    input_variables=["grade", "difficulty", "lesson_description"],
+    input_variables=["grade", "lesson_description"],
     template=template,
 )
 
@@ -31,36 +31,19 @@ st.header("Lesson Planner for Educators")
 openai_api_key = st.secrets["OPENAI_API_KEY"]
 
 
-col1, col2, col3 = st.beta_columns(3)
-
+col1, col2 = st.columns(2)
 with col1:
-    st.markdown(
-        """
-        <style>
-        .header {
-            color: #fff;
-            text-align: center;
-            background-color: #00BFFF;
-            padding: 5px;
-            border-radius: 10px;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
-    st.markdown('<h1 class="header">Lesson Planner for Educators</h1>', unsafe_allow_html=True)
+    option_grade = st.selectbox(
+        'Which grade do you teach?',
+        ["Elementary School","Middle School","High School","College","Graduate School"],
+        index=3)
 
 with col2:
-    option_grade = st.selectbox(
-        'Grade level',
-        ["Elementary School", "Middle School", "High School", "College", "Graduate School"],
-        index=3
-    )
+    difficulty = st.selectbox(
+        'Difficulty level',
+        ["Beginner", "Intermediate", "Expert"],
+        index=2)
 
-with col3:
-    subject = st.text_input("Subject", "")
-
-lesson_description = st.text_input("What do you want the lesson to be about?", "")
 
 if lesson_description:
     if not openai_api_key:
@@ -75,17 +58,5 @@ if lesson_description:
 
     lesson_plan = llm(prompt_with_grade_and_description)
 
-    st.markdown(
-        """
-        <style>
-        .lesson-plan {
-            background-color: #eee;
-            padding: 20px;
-            border-radius: 10px;
-            font-size: 16px;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
-    st.markdown('<div class="lesson-plan">{}</div>'.format("<br>".join(lesson_plan)), unsafe_allow_html=True)
+    st.markdown("### Your Lesson Plan Bullet Points:")
+    st.write(lesson_plan)
