@@ -31,7 +31,7 @@ def load_LLM(openai_api_key):
 
 # Define the form to get user input
 with st.form("lesson_planner"):
-    col1, col2, col3 = st.columns([1, 1, 2])
+    col1, col2 = st.columns([1, 2])
 
     with col1:
         # Let user choose the grade level
@@ -42,18 +42,14 @@ with st.form("lesson_planner"):
         )
 
     with col2:
-        # Let user choose the subject
-        option_subject = st.selectbox(
-            'Subject',
-            ["Math", "Science", "History", "English", "Art", "Music", "PE", "Foreign Language"]
-        )
+        # Let user input the subject
+        subject = st.text_input("Subject")
 
-    with col3:
-        # Let user choose the difficulty level
-        option_difficulty = st.select_slider(
-            "Difficulty level",
-            ["Beginner", "Intermediate", "Advanced"]
-        )
+    # Let user choose the difficulty level
+    difficulty = st.select_slider(
+        "Difficulty level",
+        ["Beginner", "Intermediate", "Advanced"]
+    )
 
     # Let user input the lesson description
     lesson_description = st.text_input("Lesson description")
@@ -74,15 +70,10 @@ if lesson_description and submit_button:
         difficulty=difficulty,
         lesson_description=lesson_description
     )
-
-    # Create an empty element to stream the output
-    lesson_plan_output = st.empty()
-
-    # Use a progress spinner to indicate that the model is working
-    with st.spinner("Generating lesson plan..."):
-        lesson_plan = llm(prompt_with_grade_subject_difficulty_and_description)
+    lesson_plan = llm(prompt_with_grade_subject_difficulty_and_description)
 
     # Display the generated lesson plan
     st.markdown("### Your Lesson Plan Bullet Points:")
     lesson_plan = lesson_plan.strip().split("\n")
-    lesson_plan_output.write("- " + "\n- ".join(lesson_plan))
+    st.write("- " + "\n- ".join(lesson_plan))
+    st.streamlit```
