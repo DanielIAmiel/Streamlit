@@ -32,7 +32,7 @@ st.header("Lesson Planner for Educators")
 openai_api_key = st.secrets["OPENAI_API_KEY"]
 
 
-col1, col2 = st.columns(2)
+col1, col2 = st.columns(3)
 with col1:
     option_grade = st.selectbox(
         'Which grade do you teach?',
