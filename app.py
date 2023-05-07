@@ -22,7 +22,7 @@ prompt = PromptTemplate(
 )
 
 def load_LLM(openai_api_key):
-    llm = OpenAI(temperature=.7, openai_api_key=openai_api_key, model=gpt-3.5-turbo)
+    llm = OpenAI(temperature=.7, openai_api_key=openai_api_key)
     return llm
 
 st.set_page_config(page_title="Lesson Planner for Educators", page_icon=":robot:")
