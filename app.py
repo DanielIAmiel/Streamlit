@@ -10,7 +10,7 @@ openai_api_key = st.secrets["OPENAI_API_KEY"]
 
 
 template = """
-    Please generate 5 bullet points for a lesson plan on the following topic for a {grade} class, separated by newlines:
+    Please generate 5 bullet points for a lesson plan on the following topic for a {grade} class:
     {lesson_description}
 
     YOUR LESSON PLAN BULLET POINTS:
