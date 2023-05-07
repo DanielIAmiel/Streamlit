@@ -1,6 +1,3 @@
-st.markdown('<style>body {background-color: #f5f5f5;}</style>', unsafe_allow_html=True)
-
-
 import streamlit as st
 from langchain import PromptTemplate
 from langchain.llms import OpenAI
@@ -34,21 +31,38 @@ st.header("Lesson Planner for Educators")
 openai_api_key = st.secrets["OPENAI_API_KEY"]
 
 
-col1, col2, col3 = st.columns(3)
+st.beta_set_page_config(page_title="Lesson Planner for Educators", page_icon=":robot:", layout="wide")
+
+col1, col2, col3 = st.beta_columns(3)
+
 with col1:
+    st.markdown(
+        """
+        <style>
+        .header {
+            color: #fff;
+            text-align: center;
+            background-color: #00BFFF;
+            padding: 5px;
+            border-radius: 10px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+    st.markdown('<h1 class="header">Lesson Planner for Educators</h1>', unsafe_allow_html=True)
+
+with col2:
     option_grade = st.selectbox(
         'Grade level',
         ["Elementary School", "Middle School", "High School", "College", "Graduate School"],
-        index=3)
-    
-with col2:
-    difficulty = st.selectbox(
-        'Difficulty level',
-        ["Beginner", "Intermediate", "Expert"],
-        index = 1)
+        index=3
+    )
 
 with col3:
-    lesson_description = st.text_input("What do you want the lesson to be about?", "")
+    subject = st.text_input("Subject", "")
+
+lesson_description = st.text_input("What do you want the lesson to be about?", "")
 
 if lesson_description:
     if not openai_api_key:
@@ -59,9 +73,21 @@ if lesson_description:
 
     llm = load_LLM(openai_api_key=openai_api_key)
 
-    prompt_with_grade_and_description = prompt.format(grade=option_grade, lesson_description=lesson_description, difficulty=difficulty)
+    prompt_with_grade_and_description = prompt.format(grade=option_grade, lesson_description=lesson_description)
 
     lesson_plan = llm(prompt_with_grade_and_description)
 
-    st.markdown("### Your Lesson Plan Bullet Points:")
-    st.write(lesson_plan)
+    st.markdown(
+        """
+        <style>
+        .lesson-plan {
+            background-color: #eee;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+    st.markdown('<div class="lesson-plan">{}</div>'.format("<br>".join(lesson_plan)), unsafe_allow_html=True)
