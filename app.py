@@ -35,15 +35,10 @@ col1, col2 = st.columns(2)
 with col1:
     option_grade = st.selectbox(
         'Which grade do you teach?',
-        ["Elementary School","Middle School","High School","College","Graduate School"],
-        index=3)
+        [str(x) for x in range(1, 13)])
 
 with col2:
-    difficulty = st.selectbox(
-        'Difficulty level',
-        ["Beginner", "Intermediate", "Expert"],
-        index=2)
-
+    lesson_description = st.text_input("What do you want the lesson to be about?", "")
 
 if lesson_description:
     if not openai_api_key:
