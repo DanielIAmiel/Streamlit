@@ -2,6 +2,9 @@ import streamlit as st
 from langchain import PromptTemplate
 from langchain.llms import OpenAI
 
+# Import the API key from apikey.py
+from apikey import OPENAI_API_KEY
+
 template = """
     Please generate 5 bullet points for a lesson plan on the following topic for a {grade} class:
     {lesson_description}
@@ -21,12 +24,7 @@ def load_LLM(openai_api_key):
 st.set_page_config(page_title="Lesson Planner for Educators", page_icon=":robot:")
 st.header("Lesson Planner for Educators")
 
-def get_api_key():
-    input_text = st.text_input(label="OpenAI API Key ", placeholder="Ex: sk-2twmA8tfCb8un4...",
-                               key="openai_api_key_input")
-    return input_text
-
-openai_api_key = get_api_key()
+openai_api_key = OPENAI_API_KEY
 
 col1, col2 = st.columns(2)
 with col1:
