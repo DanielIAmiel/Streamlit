@@ -1,3 +1,6 @@
+st.markdown('<style>body {background-color: #f5f5f5;}</style>', unsafe_allow_html=True)
+
+
 import streamlit as st
 from langchain import PromptTemplate
 from langchain.llms import OpenAI
