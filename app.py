@@ -35,12 +35,14 @@ col1, col2, col3 = st.columns(3)
 with col1:
     option_grade = st.selectbox(
         'Grade level',
-        ["Elementary School", "Middle School", "High School", "College", "Graduate School"])
+        ["Elementary School", "Middle School", "High School", "College", "Graduate School"],
+        index=3)
     
 with col2:
     difficulty = st.selectbox(
         'Difficulty level',
-        ["beginner", "intermediate", "expert"])
+        ["beginner", "intermediate", "expert"],
+        index = 2)
 
 with col3:
     lesson_description = st.text_input("What do you want the lesson to be about?", "")
