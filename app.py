@@ -10,7 +10,7 @@ openai_api_key = st.secrets["OPENAI_API_KEY"]
 
 
 template = """
-    Please generate 5 bullet points for a {difficulty} lesson plan on the following topic for a {grade} class:
+    Please generate 5 bullet points for a {difficulty} level lesson plan on the following topic for a {grade} class:
     {lesson_description}
 
     YOUR LESSON PLAN BULLET POINTS:
@@ -33,14 +33,14 @@ openai_api_key = st.secrets["OPENAI_API_KEY"]
 
 col1, col2, col3 = st.columns(3)
 with col1:
-    option_grade = st.selectbox(
-        'Which grade do you teach?',
-        [str(x) for x in range(1, 13)])
+    option_grade = = st.selectbox(
+        'Grade level',
+        ["Elementary School", "Middle School", "High School", "College", "Graduate School"])
     
 with col2:
     difficulty = st.selectbox(
         'Difficulty level',
-        [str(x) for x in range(1, 5)])
+        ["beginner", "intermediate", "expert"])
 
 with col3:
     lesson_description = st.text_input("What do you want the lesson to be about?", "")
