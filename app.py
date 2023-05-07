@@ -25,7 +25,8 @@ def load_LLM(openai_api_key):
     llm = OpenAI(temperature=.7, openai_api_key=openai_api_key)
     return llm
 
-st.set_page_config(page_title="Lesson Planner for Educators", page_icon=":robot:")
+st.beta_set_page_config(page_title="Lesson Planner for Educators", page_icon=":robot:", layout="wide")
+
 st.header("Lesson Planner for Educators")
 
 openai_api_key = st.secrets["OPENAI_API_KEY"]
@@ -57,17 +58,4 @@ if lesson_description:
     st.markdown("### Your Lesson Plan Bullet Points:")
     st.write(lesson_plan)
 
-    st.markdown(
-        """
-        <style>
-        .lesson-plan {
-            background-color: #eee;
-            padding: 20px;
-            border-radius: 10px;
-            font-size: 16px;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
-    st.markdown('<div class="lesson-plan">{}</div>'.format("<br>".join(lesson_plan)), unsafe_allow_html=True)
+   
