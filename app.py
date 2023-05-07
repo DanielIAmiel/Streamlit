@@ -31,7 +31,7 @@ def load_LLM(openai_api_key):
 
 # Define the form to get user input
 with st.form("lesson_planner"):
-    col1, col2 = st.columns([1, 2])
+    col1, col2, col3 = st.columns([1, 1, 2])
 
     with col1:
         # Let user choose the grade level
@@ -42,14 +42,18 @@ with st.form("lesson_planner"):
         )
 
     with col2:
-        # Let user input the subject
-        subject = st.text_input("Subject")
+        # Let user choose the subject
+        option_subject = st.selectbox(
+            'Subject',
+            ["Math", "Science", "History", "English", "Art", "Music", "PE", "Foreign Language"]
+        )
 
-    # Let user choose the difficulty level
-    difficulty = st.select_slider(
-        "Difficulty level",
-        ["Beginner", "Intermediate", "Advanced"]
-    )
+    with col3:
+        # Let user choose the difficulty level
+        option_difficulty = st.select_slider(
+            "Difficulty level",
+            ["Beginner", "Intermediate", "Advanced"]
+        )
 
     # Let user input the lesson description
     lesson_description = st.text_input("Lesson description")
