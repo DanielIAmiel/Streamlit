@@ -70,13 +70,19 @@ if lesson_description and submit_button:
     llm = load_LLM(openai_api_key=openai_api_key)
     prompt_with_grade_subject_difficulty_and_description = prompt.format(
         grade=option_grade, 
-        subject=option_subject,
-        difficulty=option_difficulty,
+        subject=subject,
+        difficulty=difficulty,
         lesson_description=lesson_description
     )
-    lesson_plan = llm(prompt_with_grade_subject_difficulty_and_description)
+
+    # Create an empty element to stream the output
+    lesson_plan_output = st.empty()
+
+    # Use a progress spinner to indicate that the model is working
+    with st.spinner("Generating lesson plan..."):
+        lesson_plan = llm(prompt_with_grade_subject_difficulty_and_description)
 
     # Display the generated lesson plan
     st.markdown("### Your Lesson Plan Bullet Points:")
     lesson_plan = lesson_plan.strip().split("\n")
-    st.write("- " + "\n- ".join(lesson_plan))
+    lesson_plan_output.write("- " + "\n- ".join(lesson_plan))
