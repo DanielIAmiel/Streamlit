@@ -28,7 +28,8 @@ def load_LLM(openai_api_key):
 st.set_page_config(page_title="Lesson Planner for Educators", page_icon=":robot:")
 st.header("Lesson Planner for Educators")
 
-openai_api_key = OPENAI_API_KEY
+openai_api_key = st.secrets["OPENAI_API_KEY"]
+
 
 col1, col2 = st.columns(2)
 with col1:
