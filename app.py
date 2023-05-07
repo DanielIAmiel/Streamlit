@@ -56,3 +56,18 @@ if lesson_description:
 
     st.markdown("### Your Lesson Plan Bullet Points:")
     st.write(lesson_plan)
+
+    st.markdown(
+        """
+        <style>
+        .lesson-plan {
+            background-color: #eee;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+    st.markdown('<div class="lesson-plan">{}</div>'.format("<br>".join(lesson_plan)), unsafe_allow_html=True)
