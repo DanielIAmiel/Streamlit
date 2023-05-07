@@ -3,7 +3,7 @@ from langchain import PromptTemplate
 from langchain.llms import OpenAI
 
 # Import the API key from apikey.py
-from apikey import OPENAI_API_KEY
+from apikey import apikey
 
 template = """
     Please generate 5 bullet points for a lesson plan on the following topic for a {grade} class:
