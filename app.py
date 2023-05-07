@@ -35,7 +35,7 @@ col1, col2 = st.columns(2)
 with col1:
     option_grade = st.selectbox(
         'Which grade do you teach?',
-        [str(x) for x in range(1, 13)])
+        ["High School","College","Graduate School"])
 
 with col2:
     lesson_description = st.text_input("What do you want the lesson to be about?", "")
