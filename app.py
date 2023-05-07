@@ -5,7 +5,8 @@ from langchain.llms import OpenAI
 # Import the API key from apikey.py
 import os
 
-openai_api_key = os.environ.get("OPENAI_API_KEY")
+openai_api_key = st.secrets["OPENAI_API_KEY"]
+
 
 
 template = """
