@@ -25,7 +25,7 @@ def load_LLM(openai_api_key):
     llm = OpenAI(temperature=.7, openai_api_key=openai_api_key)
     return llm
 
-st.beta_set_page_config(page_title="Lesson Planner for Educators", page_icon=":robot:", layout="wide")
+st.set_page_config(page_title="Lesson Planner for Educators", page_icon=":robot:")
 
 st.header("Lesson Planner for Educators")
 
