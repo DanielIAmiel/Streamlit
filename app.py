@@ -41,8 +41,8 @@ with col1:
 with col2:
     difficulty = st.selectbox(
         'Difficulty level',
-        ["beginner", "intermediate", "expert"],
-        index = 2)
+        ["Beginner", "Intermediate", "Expert"],
+        index = 1)
 
 with col3:
     lesson_description = st.text_input("What do you want the lesson to be about?", "")
