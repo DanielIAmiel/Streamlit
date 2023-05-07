@@ -1,32 +1,13 @@
 import streamlit as st
-from langchain import PromptTemplate
-from langchain.llms import OpenAI
+import openai
 
 # Import the API key from apikey.py
-import os
-
 openai_api_key = st.secrets["OPENAI_API_KEY"]
-
-template = """
-    Please generate 5 bullet points for a lesson plan on the following topic for a {grade} {subject} class:
-    {lesson_description}
-
-    YOUR LESSON PLAN BULLET POINTS:
-"""
-
-prompt = PromptTemplate(
-    input_variables=["grade", "subject", "lesson_description"],
-    template=template,
-)
-
-def load_LLM(openai_api_key):
-    llm = OpenAI(temperature=.7, openai_api_key=openai_api_key, engine="text-davinci-002")
-    return llm
 
 st.set_page_config(page_title="Lesson Planner for Educators", page_icon=":robot:")
 st.header("Lesson Planner for Educators")
 
-openai_api_key = st.secrets["OPENAI_API_KEY"]
+openai.api_key = openai_api_key
 
 col1, col2, col3 = st.columns(3)
 with col1:
@@ -47,11 +28,23 @@ if lesson_description and subject:
             icon="⚠️")
         st.stop()
 
-    llm = load_LLM(openai_api_key=openai_api_key)
+    prompt = f"""
+    Please generate 5 bullet points for a lesson plan on the following topic for a {option_grade} {subject} class:
+    {lesson_description}
 
-    prompt_with_grade_subject_and_description = prompt.format(grade=option_grade, subject=subject, lesson_description=lesson_description)
+    YOUR LESSON PLAN BULLET POINTS:
+    """
 
-    lesson_plan = llm(prompt_with_grade_subject_and_description)
+    response = openai.Completion.create(
+        engine="gpt-3.5-turbo",
+        prompt=prompt,
+        max_tokens=150,
+        n=1,
+        stop=None,
+        temperature=0.7,
+    )
+
+    lesson_plan = response.choices[0].text.strip()
 
     st.markdown("### Your Lesson Plan Bullet Points:")
     st.write(lesson_plan)
