@@ -33,7 +33,7 @@ openai_api_key = st.secrets["OPENAI_API_KEY"]
 
 col1, col2, col3 = st.columns(3)
 with col1:
-    option_grade = = st.selectbox(
+    option_grade = st.selectbox(
         'Grade level',
         ["Elementary School", "Middle School", "High School", "College", "Graduate School"])
     
