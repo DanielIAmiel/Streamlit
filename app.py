@@ -1,6 +1,5 @@
 import streamlit as st
 import openai
-from io import StringIO
 
 # Set up the page
 st.set_page_config(page_title="Lesson Planner for Educators", page_icon=":mortar_board:")
@@ -57,18 +56,16 @@ if lesson_description and submit_button:
     )
 
     # Prepare and send the request to the OpenAI API
-    completions = openai.Completion.create(
-        engine="text-davinci-002",
-        prompt=prompt_with_grade_subject_difficulty_and_description,
-        max_tokens=1024,
-        n=1,
-        stop=None,
-        temperature=0.7
-    )
+    with st.spinner("Generating lesson plan..."):
+        completions = openai.Completion.create(
+            engine="text-davinci-002",
+            prompt=prompt_with_grade_subject_difficulty_and_description,
+            max_tokens=1024,
+            n=1,
+            stop=None,
+            temperature=0.7
+        )
 
-    lesson_plan = StringIO()
-
-    # Process and display the tokens
-    for token in completions.choices[0].tokens:
-        lesson_plan.write(token.text)
-        st.text_area("Your Lesson Plan:", value=lesson_plan.getvalue(), height=400, max_chars=None, key="lesson_plan")
+    # Display the generated lesson plan
+    st.markdown("### Your Lesson Plan:")
+    st.text_area("Generated Lesson Plan", completions.choices[0].text, height=400, max_chars=None, key="lesson_plan")
