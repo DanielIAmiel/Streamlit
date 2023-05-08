@@ -11,12 +11,12 @@ openai_api_key = st.secrets["OPENAI_API_KEY"]
 
 # Define the prompt template
 template = """
-Please generate 5 bullet points for a lesson plan on the following topic for a {grade} {subject} class:
+Please generate a formatted lesson plan on the following topic for a {grade} {subject} class:
 {lesson_description}
 
 Difficulty level: {difficulty}
 
-YOUR LESSON PLAN BULLET POINTS:
+YOUR LESSON PLAN:
 """
 
 prompt = PromptTemplate(
