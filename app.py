@@ -68,5 +68,8 @@ if lesson_description and submit_button:
 
     # Display the generated lesson plan
     st.markdown("### Your Lesson Plan:")
-    for token in completions.choices[0].tokens:
-        st.text(token.text, end="")
+    lesson_plan = ""
+for token in completions.choices[0].tokens:
+    lesson_plan += token.text
+    st.write(lesson_plan, unsafe_allow_html=True)
+
