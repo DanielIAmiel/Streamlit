@@ -60,7 +60,7 @@ if lesson_description and submit_button:
         completions = openai.Completion.create(
             engine="text-davinci-003",
             prompt=prompt_with_grade_subject_difficulty_and_description,
-            max_tokens=300,
+            max_tokens=400,
             n=1,
             stop=None,
             temperature=0.7
