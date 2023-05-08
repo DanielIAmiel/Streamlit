@@ -68,4 +68,4 @@ if lesson_description and submit_button:
 
     # Display the generated lesson plan
     st.markdown("### Your Lesson Plan:")
-    st.text_area("Generated Lesson Plan", completions.choices[0].text, height=400, max_chars=None, key="lesson_plan")
+    st.text_area("Generated Lesson Plan", completions.choices[0].text, height=800, max_chars=None, key="lesson_plan")
