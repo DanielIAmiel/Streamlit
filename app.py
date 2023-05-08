@@ -60,7 +60,7 @@ if lesson_description and submit_button:
         completions = openai.Completion.create(
             engine="text-davinci-003",
             prompt=prompt_with_grade_subject_difficulty_and_description,
-            max_tokens=350,
+            max_tokens=400,
             n=1,
             stop=None,
             temperature=0.7
@@ -68,4 +68,4 @@ if lesson_description and submit_button:
 
     # Display the generated lesson plan
     st.markdown("### Your Lesson Plan:")
-    st.text_area("Generated Lesson Plan", completions.choices[0].text, height=1000, max_chars=None, key="lesson_plan")
+    st.text_area("Generated Lesson Plan", completions.choices[0].text, height=1100, max_chars=None, key="lesson_plan")
