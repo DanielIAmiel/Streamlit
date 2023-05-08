@@ -58,9 +58,9 @@ if lesson_description and submit_button:
     # Prepare and send the request to the OpenAI API
     with st.spinner("Generating lesson plan..."):
         completions = openai.Completion.create(
-            engine="text-davinci-002",
+            engine="text-davinci-003",
             prompt=prompt_with_grade_subject_difficulty_and_description,
-            max_tokens=500,
+            max_tokens=1000,
             n=1,
             stop=None,
             temperature=0.7
