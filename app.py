@@ -74,7 +74,8 @@ if lesson_description and submit_button:
 
     # Display the generated lesson plan
 st.markdown("### Your Lesson Plan Bullet Points:")
-lesson_plan = lesson_plan.strip().split("\n")
-formatted_lesson_plan = "- " + "\n- ".join(lesson_plan)
+bullet_points = lesson_plan.strip().split("\n")
+formatted_lesson_plan = "- " + "\n- ".join(bullet_points)
 st.markdown(formatted_lesson_plan)
+
 
