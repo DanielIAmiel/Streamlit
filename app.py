@@ -11,7 +11,7 @@ openai.api_key = openai_api_key
 
 # Define the prompt template
 template = """
-Please generate a formatted lesson plan on the following topic for a {grade} {subject} class:
+Please generate a brief formatted lesson plan on the following topic for a {grade} {subject} class:
 {lesson_description}
 
 Difficulty level: {difficulty}
@@ -60,7 +60,7 @@ if lesson_description and submit_button:
         completions = openai.Completion.create(
             engine="text-davinci-003",
             prompt=prompt_with_grade_subject_difficulty_and_description,
-            max_tokens=400,
+            max_tokens=300,
             n=1,
             stop=None,
             temperature=0.7
