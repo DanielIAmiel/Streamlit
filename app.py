@@ -72,13 +72,5 @@ if lesson_description and submit_button:
     )
     lesson_plan = llm(prompt_with_grade_subject_difficulty_and_description)
 
-    # Debugging lines
-    st.write(f"Type of lesson_plan: {type(lesson_plan)}")
-    st.write(f"Content of lesson_plan: {lesson_plan}")
-
-
-# Display the generated lesson plan
-st.markdown("### Your Lesson Plan:")
-st.text(lesson_plan)
-
+    
 
