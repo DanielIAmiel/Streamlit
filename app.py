@@ -69,7 +69,18 @@ if lesson_description and submit_button:
     # Display the generated lesson plan
     st.markdown("### Your Lesson Plan:")
     lesson_plan = ""
-for token in completions.choices[0].tokens:
-    lesson_plan += token.text
-    st.write(lesson_plan, unsafe_allow_html=True)
+
+    from io import StringIO
+
+lesson_plan = StringIO()
+
+def handle_token(token):
+    lesson_plan.write(token.text)
+
+for chunk in completions.stream():
+    tokens = chunk.choices[0].tokens
+    for token in tokens:
+        handle_token(token)
+        st.text_area("Your Lesson Plan:", value=lesson_plan.getvalue(), height=400, max_chars=None, key="lesson_plan")
+
 
