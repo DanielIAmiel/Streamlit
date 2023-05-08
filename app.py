@@ -77,5 +77,8 @@ if lesson_description and submit_button:
     st.write(f"Content of lesson_plan: {lesson_plan}")
 
 
+# Display the generated lesson plan
+st.markdown("### Your Lesson Plan:")
+st.text(lesson_plan)
 
 
