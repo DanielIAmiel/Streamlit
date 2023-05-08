@@ -1,6 +1,5 @@
 import streamlit as st
-from langchain import PromptTemplate
-from langchain.llms import OpenAI
+import openai
 
 # Set up the page
 st.set_page_config(page_title="Lesson Planner for Educators", page_icon=":mortar_board:")
@@ -8,10 +7,11 @@ st.title("Lesson Planner for Educators")
 
 # Get OpenAI API key
 openai_api_key = st.secrets["OPENAI_API_KEY"]
+openai.api_key = openai_api_key
 
 # Define the prompt template
 template = """
-Please generate a simple formatted lesson plan on the following topic for a {grade} {subject} class:
+Please generate a formatted lesson plan on the following topic for a {grade} {subject} class:
 {lesson_description}
 
 Difficulty level: {difficulty}
@@ -19,42 +19,27 @@ Difficulty level: {difficulty}
 YOUR LESSON PLAN:
 """
 
-prompt = PromptTemplate(
-    input_variables=["grade", "subject", "difficulty", "lesson_description"],
-    template=template,
-)
-
-# Load OpenAI LLM
-def load_LLM(openai_api_key):
-    llm = OpenAI(temperature=.7, openai_api_key=openai_api_key)
-    return llm
-
 # Define the form to get user input
 with st.form("lesson_planner"):
     col1, col2 = st.columns([1, 2])
 
     with col1:
-        # Let user choose the grade level
         option_grade = st.selectbox(
             'Grade level',
             ["Elementary School", "Middle School", "High School", "College", "Graduate School"],
-            index=3  # Set default value to College
+            index=3
         )
 
     with col2:
-        # Let user input the subject
         subject = st.text_input("Subject")
 
-    # Let user choose the difficulty level
     difficulty = st.select_slider(
         "Difficulty level",
         ["Beginner", "Low-Intermediate", "Intermediate", "High-Intermediate", "Advanced"]
     )
 
-    # Let user input the lesson description
     lesson_description = st.text_input("Lesson description")
 
-    # Let user submit the form
     submit_button = st.form_submit_button(label="Generate Lesson Plan")
 
 # Generate the lesson plan
@@ -63,16 +48,25 @@ if lesson_description and submit_button:
         st.warning('Missing OpenAI API key')
         st.stop()
 
-    llm = load_LLM(openai_api_key=openai_api_key)
-    prompt_with_grade_subject_difficulty_and_description = prompt.format(
+    prompt_with_grade_subject_difficulty_and_description = template.format(
         grade=option_grade, 
         subject=subject,
         difficulty=difficulty,
         lesson_description=lesson_description
     )
-    lesson_plan = llm(prompt_with_grade_subject_difficulty_and_description)
 
-    
-# Debugging lines
-    st.write(f"Type of lesson_plan: {type(lesson_plan)}")
-    st.write(f"Content of lesson_plan: {lesson_plan}")
+    # Create completion with streaming
+    completions = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=prompt_with_grade_subject_difficulty_and_description,
+        n=1,
+        max_tokens=1024,
+        temperature=0.7,
+        stop=None,  # You can set a stop token if needed
+        stream=True
+    )
+
+    # Display the generated lesson plan
+    st.markdown("### Your Lesson Plan:")
+    for token in completions.choices[0].tokens:
+        st.text(token.text, end="")
