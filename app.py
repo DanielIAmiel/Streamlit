@@ -72,10 +72,9 @@ if lesson_description and submit_button:
     )
     lesson_plan = llm(prompt_with_grade_subject_difficulty_and_description)
 
-    # Display the generated lesson plan
-st.markdown("### Your Lesson Plan Bullet Points:")
-bullet_points = lesson_plan.strip().split("\n")
-formatted_lesson_plan = "- " + "\n- ".join(bullet_points)
-st.markdown(formatted_lesson_plan)
+   # Display the generated lesson plan
+    st.markdown("### Your Lesson Plan Bullet Points:")
+    lesson_plan = lesson_plan.strip().split("\n")
+    st.write("- " + "\n- ".join(lesson_plan))
 
 
