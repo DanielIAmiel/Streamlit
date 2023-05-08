@@ -11,7 +11,7 @@ openai_api_key = st.secrets["OPENAI_API_KEY"]
 
 # Define the prompt template
 template = """
-Please generate a formatted lesson plan on the following topic for a {grade} {subject} class:
+Please generate a simple formatted lesson plan on the following topic for a {grade} {subject} class:
 {lesson_description}
 
 Difficulty level: {difficulty}
