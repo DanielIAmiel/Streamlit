@@ -35,8 +35,7 @@ with st.form("lesson_planner"):
 
     difficulty = st.select_slider(
         "Difficulty level",
-        ["Beginner", "Low-Intermediate", "Intermediate", "High-Intermediate", "Advanced"],
-        index=2
+        ["Beginner", "Low-Intermediate", "Intermediate", "High-Intermediate", "Advanced"]
     )
 
     lesson_description = st.text_input("Lesson description")
