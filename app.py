@@ -76,4 +76,3 @@ if lesson_description and submit_button:
     st.markdown("### Your Lesson Plan Bullet Points:")
     lesson_plan = lesson_plan.strip().split("\n")
     st.write("- " + "\n- ".join(lesson_plan))
-    st.streamlit```
